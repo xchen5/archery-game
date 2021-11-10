@@ -1,15 +1,11 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 
 class Target {
   late double yValue;
 
-  Widget buildTarget(double height, double width) {
-    Random r = Random();
+  Widget buildTarget(double height, double width, double randY) {
     //TODO Change from hardcoded Coordinates
-    double randomDouble = r.nextDouble() * 200;
-    print(randomDouble);
+    yValue = randY;
     return Positioned(
         child: Image.asset(
           'assets/images/target-sprite.png',
@@ -19,6 +15,6 @@ class Target {
         //TODO Change from hardcoded Coordinates
         left: 500,
         right: 100,
-        top: randomDouble);
+        top: yValue);
   }
 }

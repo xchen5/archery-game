@@ -1,9 +1,13 @@
 import 'dart:math';
 
 import 'package:archery_game/bow.dart';
+import 'package:archery_game/lives.dart';
 import 'package:archery_game/target.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/cupertino.dart';
+
+Random randObj = Random();
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,21 +21,11 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Archery Game',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Archery Game'),
@@ -48,26 +42,46 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  double angle = 0;
+  double randDouble = randObj.nextDouble() * 200;
+  Target targetObj = Target();
+  Lives livesObj = Lives(3);
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final screenWidth = screenSize.width;
     final screenHeight = screenSize.height;
     Bow bowObj = Bow();
-    Target targetObj = Target();
-    print(screenWidth);
-    print(screenHeight);
-    return Scaffold(
-        backgroundColor: Colors.grey,
-        body: Container(
-          child: Stack(
-            children: [
-              Stack(
-                children: [targetObj.buildTarget(screenHeight, screenWidth)],
-              ),
-              bowObj.buildBow(screenHeight, screenWidth)
-            ],
-          ),
-        ));
+
+    //print(screenWidth);
+    //print(screenHeight);
+    return GestureDetector(
+        onVerticalDragUpdate: (DragUpdateDetails details) {
+          //print("update");
+          //print(details);
+          //print("---------------------");
+          setState(() {
+            //rebuild everytime when dragupdate is triggered
+            angle += details.delta.dy / 50;
+          });
+        },
+        child: Scaffold(
+            backgroundColor: Colors.grey,
+            body: Stack(
+              children: [
+                Text("Lives: ${livesObj.getLives}",
+                    style:
+                        //TODO fix hardcoded coordinates
+                        const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 25)),
+                Stack(
+                  children: [
+                    targetObj.buildTarget(screenHeight, screenWidth, randDouble)
+                  ],
+                ),
+                bowObj.buildBow(screenHeight, screenWidth, angle)
+              ],
+            )));
   }
 }
