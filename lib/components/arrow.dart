@@ -24,12 +24,9 @@ class Arrow extends SpriteComponent with HasGameRef, Hitbox, Collidable {
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, Collidable other) {
-    // TODO: implement onCollision
     super.onCollision(intersectionPoints, other);
-    print(intersectionPoints);
     remove(arrowEffect);
     position.x = 100;
-    print("collided");
   }
 
   void shootArrow() {
@@ -39,6 +36,5 @@ class Arrow extends SpriteComponent with HasGameRef, Hitbox, Collidable {
         curve: Curves.decelerate);
     arrowEffect = arrowShot;
     add(arrowShot);
-    print(position.x);
   }
 }

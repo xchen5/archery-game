@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:archery_game/archergame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:archery_game/components/globalvar.dart';
 
 class MainGamePage extends StatefulWidget {
   const MainGamePage({Key? key}) : super(key: key);
@@ -19,16 +22,6 @@ class MainGameState extends State<MainGamePage> {
         body: Stack(
           children: [
             GameWidget(game: game),
-            const Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                  padding: EdgeInsets.all(10.0), child: Text("Lives: 3")),
-            ),
-            const Align(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                  padding: EdgeInsets.all(10.0), child: Text("Score: 0")),
-            ),
             Align(
               alignment: Alignment.bottomRight,
               child: Padding(

@@ -1,3 +1,5 @@
+import 'package:archery_game/components/globalvar.dart';
+import 'package:archery_game/main_game_page.dart';
 import 'package:flame/effects.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flame/components.dart';
@@ -28,9 +30,9 @@ class Target extends SpriteComponent with HasGameRef, Hitbox, Collidable {
     super.onCollision(intersectionPoints, other);
     if (intersectionPoints.elementAt(0)[0].floor() == position.x.floor() ||
         intersectionPoints.elementAt(1)[0].floor() == position.x.floor()) {
-      print("SUCESSS");
+      GlobalVar.score++;
     } else {
-      print("FAILED");
+      GlobalVar.lives--;
     }
   }
 
