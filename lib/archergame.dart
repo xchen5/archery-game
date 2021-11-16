@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:archery_game/components/arrow.dart';
@@ -12,11 +13,7 @@ import 'components/bow.dart';
 import 'components/world.dart';
 import 'package:flutter/material.dart';
 
-import 'helpers/direction.dart';
-
-class ArcherGame extends Forge2DGame with HasCollidables {
-  ArcherGame() : super(zoom: 1);
-
+class ArcherGame extends FlameGame with HasCollidables {
   final World _world = World();
   final Bow _bow = Bow();
   final Target _target = Target();
@@ -29,14 +26,14 @@ class ArcherGame extends Forge2DGame with HasCollidables {
     await add(_target);
     await add(_bow);
     await add(_arrow);
-  }
-
-  void onJoypadDirectionChanged(Direction direction) {
-    _bow.direction = direction;
-    _arrow.direction = direction;
+    moveTarget();
   }
 
   void shootArrow() {
-    _arrow.shootArrow(100, 100);
+    _arrow.shootArrow();
+  }
+
+  void moveTarget() {
+    _target.moveTarget();
   }
 }

@@ -1,12 +1,18 @@
 import 'dart:io';
 
-import 'package:archery_game/helpers/direction.dart';
 import 'package:flame/components.dart';
+import 'package:flame/geometry.dart';
+import 'package:flame_forge2d/flame_forge2d.dart';
+import 'package:flame_forge2d/body_component.dart';
+import 'package:flame/palette.dart';
+import 'package:flame_forge2d/contact_callbacks.dart';
+import 'package:forge2d/forge2d.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flame/effects.dart';
 
-class Arrow extends SpriteComponent with HasGameRef {
-  Direction direction = Direction.none;
+class Arrow extends SpriteComponent with HasGameRef, Hitbox, Collidable {
+  late MoveEffect arrowEffect;
   Arrow()
       : super(
           size: Vector2(90, (73 / 362) * 90),
@@ -16,54 +22,28 @@ class Arrow extends SpriteComponent with HasGameRef {
   Future<void> onLoad() async {
     super.onLoad();
     sprite = await gameRef.loadSprite('arrow-sprite.png');
-    angle = 0;
+    addHitbox(HitboxRectangle());
     anchor = Anchor.center;
     position = Vector2(100, (gameRef.size.y / 2));
   }
 
   @override
-  void update(double dt) {
-    super.update(dt);
-    moveArrow(dt);
+  void onCollision(Set<Vector2> intersectionPoints, Collidable other) {
+    // TODO: implement onCollision
+    super.onCollision(intersectionPoints, other);
+    print(intersectionPoints);
+    remove(arrowEffect);
+    position.x = 100;
+    print("collided");
   }
 
-  void moveArrow(double delta) {
-    switch (direction) {
-      case Direction.up:
-        moveUp(delta);
-        break;
-      case Direction.down:
-        moveDown(delta);
-        break;
-      case Direction.left:
-        moveLeft(delta);
-        break;
-      case Direction.right:
-        moveRight(delta);
-        break;
-      case Direction.none:
-        break;
-    }
-  }
-
-  void shootArrow(double speed, double dt) {
-    position.add(Vector2(10, 0));
-    position.add(Vector2(0, 10));
-  }
-
-  void moveUp(double delta) {
-    angle -= delta * 2.5;
-  }
-
-  void moveDown(double delta) {
-    angle += delta * 2.5;
-  }
-
-  void moveLeft(double delta) {
-    //position.add(Vector2(delta * -_playerSpeed, 0));
-  }
-
-  void moveRight(double delta) {
-    //position.add(Vector2(delta * _playerSpeed, 0));
+  void shootArrow() {
+    MoveEffect arrowShot = MoveEffect(
+        path: [Vector2(gameRef.size.x * .9, position.y)],
+        duration: 2,
+        curve: Curves.decelerate);
+    arrowEffect = arrowShot;
+    add(arrowShot);
+    print(position.x);
   }
 }

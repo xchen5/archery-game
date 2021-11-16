@@ -1,5 +1,4 @@
 import 'package:archery_game/archergame.dart';
-import 'package:archery_game/helpers/joypad.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
@@ -21,12 +20,14 @@ class MainGameState extends State<MainGamePage> {
           children: [
             GameWidget(game: game),
             Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                  padding: const EdgeInsets.all(10.0), child: Text("Lives: 3")),
+            ),
+            Align(
               alignment: Alignment.bottomLeft,
               child: Padding(
-                padding: const EdgeInsets.all(32.0),
-                child:
-                    Joypad(onDirectionChanged: game.onJoypadDirectionChanged),
-              ),
+                  padding: const EdgeInsets.all(10.0), child: Text("Score: 0")),
             ),
             Align(
               alignment: Alignment.bottomRight,
@@ -34,9 +35,9 @@ class MainGameState extends State<MainGamePage> {
                 padding: const EdgeInsets.all(10.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    for (int i = 0; i < 10; i++) game.shootArrow();
+                    game.shootArrow();
                   },
-                  child: Text("test"),
+                  child: Text("Shoot Arrow"),
                 ),
               ),
             )
