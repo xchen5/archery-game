@@ -19,15 +19,15 @@ class MainGameState extends State<MainGamePage> {
         body: Stack(
           children: [
             GameWidget(game: game),
-            Align(
+            const Align(
               alignment: Alignment.topLeft,
               child: Padding(
-                  padding: const EdgeInsets.all(10.0), child: Text("Lives: 3")),
+                  padding: EdgeInsets.all(10.0), child: Text("Lives: 3")),
             ),
-            Align(
+            const Align(
               alignment: Alignment.bottomLeft,
               child: Padding(
-                  padding: const EdgeInsets.all(10.0), child: Text("Score: 0")),
+                  padding: EdgeInsets.all(10.0), child: Text("Score: 0")),
             ),
             Align(
               alignment: Alignment.bottomRight,
@@ -37,7 +37,7 @@ class MainGameState extends State<MainGamePage> {
                   onPressed: () {
                     game.shootArrow();
                   },
-                  child: Text("Shoot Arrow"),
+                  child: const Text("Shoot Arrow"),
                 ),
               ),
             )
