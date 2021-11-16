@@ -23,6 +23,28 @@ class MainGameState extends State<MainGamePage> {
           children: [
             GameWidget(game: game),
             Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ValueListenableBuilder<int>(
+                    builder: (BuildContext context, int value, Widget? child) {
+                      return Text("Lives: $value");
+                    },
+                    valueListenable: GlobalVar.lives,
+                  )),
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ValueListenableBuilder<int>(
+                    builder: (BuildContext context, int value, Widget? child) {
+                      return Text("Score: $value");
+                    },
+                    valueListenable: GlobalVar.score,
+                  )),
+            ),
+            Align(
               alignment: Alignment.bottomRight,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -31,6 +53,19 @@ class MainGameState extends State<MainGamePage> {
                     game.shootArrow();
                   },
                   child: const Text("Shoot Arrow"),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    GlobalVar.lives.value = 3;
+                    GlobalVar.score.value = 0;
+                  },
+                  child: const Text("Restart"),
                 ),
               ),
             )

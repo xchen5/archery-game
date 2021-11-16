@@ -30,9 +30,9 @@ class Target extends SpriteComponent with HasGameRef, Hitbox, Collidable {
     super.onCollision(intersectionPoints, other);
     if (intersectionPoints.elementAt(0)[0].floor() == position.x.floor() ||
         intersectionPoints.elementAt(1)[0].floor() == position.x.floor()) {
-      GlobalVar.score++;
+      GlobalVar.score.value++;
     } else {
-      GlobalVar.lives--;
+      GlobalVar.lives.value--;
     }
   }
 

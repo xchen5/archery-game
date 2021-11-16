@@ -22,14 +22,6 @@ class ArcherGame extends FlameGame with HasCollidables {
     await add(_target);
     await add(_bow);
     await add(_arrow);
-    await add(TextComponent('Score: ${GlobalVar.score}', textRenderer: regular)
-      ..anchor = Anchor.bottomLeft
-      ..x = 0 // size is a property from game
-      ..y = size.y);
-    await add(TextComponent('Lives ${GlobalVar.lives}', textRenderer: regular)
-      ..anchor = Anchor.topLeft
-      ..x = 0 // size is a property from game
-      ..y = 0);
     moveTarget();
   }
 
