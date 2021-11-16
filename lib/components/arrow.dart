@@ -1,32 +1,33 @@
-import 'dart:math';
+import 'dart:io';
 
 import 'package:archery_game/helpers/direction.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flame/effects.dart';
 
-class Bow extends SpriteComponent with HasGameRef {
+class Arrow extends SpriteComponent with HasGameRef {
   Direction direction = Direction.none;
-  Bow()
+  Arrow()
       : super(
-          size: Vector2.all(100.0),
+          size: Vector2(90, (73 / 362) * 90),
         );
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    sprite = await gameRef.loadSprite('bow-sprite.png');
+    sprite = await gameRef.loadSprite('arrow-sprite.png');
     angle = 0;
     anchor = Anchor.center;
-    position = Vector2(100, gameRef.size.y / 2);
+    position = Vector2(100, (gameRef.size.y / 2));
   }
 
   @override
   void update(double dt) {
     super.update(dt);
-    moveBow(dt);
+    moveArrow(dt);
   }
 
-  void moveBow(double delta) {
+  void moveArrow(double delta) {
     switch (direction) {
       case Direction.up:
         moveUp(delta);
@@ -43,6 +44,11 @@ class Bow extends SpriteComponent with HasGameRef {
       case Direction.none:
         break;
     }
+  }
+
+  void shootArrow(double speed, double dt) {
+    position.add(Vector2(10, 0));
+    position.add(Vector2(0, 10));
   }
 
   void moveUp(double delta) {

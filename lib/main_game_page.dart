@@ -21,11 +21,23 @@ class MainGameState extends State<MainGamePage> {
           children: [
             GameWidget(game: game),
             Align(
-              alignment: Alignment.bottomRight,
+              alignment: Alignment.bottomLeft,
               child: Padding(
                 padding: const EdgeInsets.all(32.0),
                 child:
                     Joypad(onDirectionChanged: game.onJoypadDirectionChanged),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    for (int i = 0; i < 10; i++) game.shootArrow();
+                  },
+                  child: Text("test"),
+                ),
               ),
             )
           ],
