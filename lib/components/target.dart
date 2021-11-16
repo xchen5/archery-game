@@ -1,10 +1,7 @@
-import 'dart:math';
-
 import 'package:flame/effects.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flame/components.dart';
 import 'package:flame/geometry.dart';
-import 'package:flame/sprite.dart';
 
 class Target extends SpriteComponent with HasGameRef, Hitbox, Collidable {
   late double yValue;

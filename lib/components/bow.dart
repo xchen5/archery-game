@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:flame/components.dart';
-import 'package:flutter/cupertino.dart';
 
 class Bow extends SpriteComponent with HasGameRef {
   Bow()

@@ -1,11 +1,6 @@
-import 'dart:io';
-
 import 'package:flame/components.dart';
 import 'package:flame/geometry.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
-import 'package:flame_forge2d/body_component.dart';
-import 'package:flame/palette.dart';
-import 'package:flame_forge2d/contact_callbacks.dart';
 import 'package:forge2d/forge2d.dart';
 
 import 'package:flutter/cupertino.dart';
